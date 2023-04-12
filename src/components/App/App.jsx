@@ -11,15 +11,19 @@ class App extends Component {
   handleIncrement=(type)=>{   
     this.setState((prevState)=>{return {[type]: prevState[type] +1,}} );
 }
-countTotalFeedback = () =>{
-
-}
+// countTotalFeedback = ({good, neutral, bad}) =>{
+// const total = good + neutral + bad;
+// console.log(total);
+// return total;
+// }
 countPositiveFeedbackPercentage = () =>{
 
 }
 
 render(){
 const{good, neutral, bad}=this.state;
+const total = good + neutral + bad;
+const positiveFeedbacks =Math.round((good/total)*100);
  return (
   
     <div
@@ -44,9 +48,9 @@ const{good, neutral, bad}=this.state;
     <p className={css.estimation}>Good: {good}</p>
     <p className={css.estimation}>Neutral: {neutral}</p>
     <p className={css.estimation}>Bad: {bad}</p>
-    {/* <p className={css.estimation}>Total: {total}</p>
-    <p className={css.estimation}>Positive feedbacks: {positiveFeedbacks}</p>
-     */}
+    <p className={css.estimation}>Total: {total}</p>
+    <p className={css.estimation}>Positive feedbacks: {positiveFeedbacks}%</p>
+    
     </div>
   );
 
