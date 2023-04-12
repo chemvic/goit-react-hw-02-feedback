@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import css from "./App.module.css";
+import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
+import Statistics from '../Statistics/Statistics';
+import Section from '../Section/Section';
 
 class App extends Component {
   state = {
@@ -11,19 +14,24 @@ class App extends Component {
   handleIncrement=(type)=>{   
     this.setState((prevState)=>{return {[type]: prevState[type] +1,}} );
 }
-// countTotalFeedback = ({good, neutral, bad}) =>{
-// const total = good + neutral + bad;
-// console.log(total);
-// return total;
-// }
-countPositiveFeedbackPercentage = () =>{
 
+countTotalFeedback = () => {
+  const { good, neutral, bad } = this.state;
+  return good + neutral + bad;
+}
+
+countPositiveFeedbackPercentage = () => {
+  const { good } = this.state;
+  // const total = this.countTotalFeedback();
+  return Math.round((good / this.countTotalFeedback()) * 100);
 }
 
 render(){
 const{good, neutral, bad}=this.state;
-const total = good + neutral + bad;
-const positiveFeedbacks =Math.round((good/total)*100);
+const total = this.countTotalFeedback();
+const positiveFeedbacks = this.countPositiveFeedbackPercentage();
+
+
  return (
   
     <div
@@ -37,20 +45,13 @@ const positiveFeedbacks =Math.round((good/total)*100);
         color: '#010101'
       }}
     >
-    <h2 className={css.title}>Please leave feedback</h2>
-    <div className={css.selectors}>
-    <button type="button" className={css.button} onClick={()=>this.handleIncrement('good')}>Good</button>
-    <button type="button" className={css.button} onClick={()=>this.handleIncrement('neutral')}>Neutral</button>
-    <button type="button" className={css.button} onClick={()=>this.handleIncrement('bad')}>Bad</button>
-    </div>
-   
-    <h2 className="statistics__title">Statistics</h2>
-    <p className={css.estimation}>Good: {good}</p>
-    <p className={css.estimation}>Neutral: {neutral}</p>
-    <p className={css.estimation}>Bad: {bad}</p>
-    <p className={css.estimation}>Total: {total}</p>
-    <p className={css.estimation}>Positive feedbacks: {positiveFeedbacks}%</p>
-    
+    <Section title="Please leave feedback">
+          <FeedbackOptions  onLeaveFeedback={this.handleIncrement}/>
+    </Section>
+    <Section title="Statistics">
+          <Statistics good={good} neutral={neutral} bad={bad} total={total} positiveFeedbacks={positiveFeedbacks}/>
+    </Section>   
+
     </div>
   );
 
