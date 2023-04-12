@@ -8,9 +8,14 @@ class App extends Component {
     bad: 0
   }
 
-  handleIncrement=(type)=>{
-   
+  handleIncrement=(type)=>{   
     this.setState((prevState)=>{return {[type]: prevState[type] +1,}} );
+}
+countTotalFeedback = () =>{
+
+}
+countPositiveFeedbackPercentage = () =>{
+
 }
 
 render(){
@@ -39,7 +44,9 @@ const{good, neutral, bad}=this.state;
     <p className={css.estimation}>Good: {good}</p>
     <p className={css.estimation}>Neutral: {neutral}</p>
     <p className={css.estimation}>Bad: {bad}</p>
-    
+    {/* <p className={css.estimation}>Total: {total}</p>
+    <p className={css.estimation}>Positive feedbacks: {positiveFeedbacks}</p>
+     */}
     </div>
   );
 
