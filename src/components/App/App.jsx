@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import css from "./App.module.css";
+// import css from "./App.module.css";
 import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
 import Statistics from '../Statistics/Statistics';
 import Section from '../Section/Section';
@@ -23,7 +23,6 @@ countTotalFeedback = () => {
 
 countPositiveFeedbackPercentage = () => {
   const { good } = this.state;
-  // const total = this.countTotalFeedback();
   return Math.round((good / this.countTotalFeedback()) * 100);
 }
 
